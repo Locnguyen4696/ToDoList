@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useContext, useState } from "react";
+import React from "react";
 
 const StyledInput = styled.input`
     width: 100%;
@@ -18,6 +18,7 @@ function Input(props) {
             placeholder={props.placeholder}
             type={props.type}
             value={props.value}
+            min={props.min}
         />
     );
 }

@@ -5,7 +5,9 @@ import Input from "../../components/Input";
 import TextArea from "../../components/TextArea";
 import { DataContext } from "../../DataContext";
 const Container = styled.div`
-    padding: 0 25px;
+    padding: 20px 25px;
+    margin-bottom: 25px;
+    border: 1px solid #ccc;
 `;
 
 const Grid = styled.div`
@@ -37,6 +39,16 @@ function TaskForm(props) {
     const [date, setDate] = useState("");
     const [priority, setPriority] = useState("Normal");
     const { item } = props;
+    let todayString =
+        new Date().getFullYear() +
+        "-" +
+        (new Date().getMonth() + 1 < 10
+            ? "0" + (new Date().getMonth() + 1)
+            : new Date().getMonth() + 1) +
+        "-" +
+        (new Date().getDate() + 1 < 10
+            ? "0" + (new Date().getDate() + 1)
+            : new Date().getDate() + 1);
     return (
         <Container>
             <Input
@@ -58,6 +70,7 @@ function TaskForm(props) {
                     <Input
                         type="date"
                         setDate={setDate}
+                        min={todayString}
                         value={
                             props.type === "add"
                                 ? date
@@ -85,14 +98,14 @@ function TaskForm(props) {
             <Button
                 onClick={() => {
                     if (props.type === "add") {
-                        if (title && description && date && priority) {
+                        if (title && priority) {
                             setDataList([
                                 ...dataList,
                                 {
                                     id: Date.now(),
                                     title: title,
                                     description: description,
-                                    date: date,
+                                    date: date || todayString,
                                     priority: priority,
                                 },
                             ]);

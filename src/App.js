@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import List from "./View/List";
 import NewTask from "./View/NewTask";
@@ -7,6 +7,9 @@ import { DataContext } from "./DataContext";
 const Wrapper = styled.div`
     display: grid;
     grid-template-columns: 2fr 3fr;
+    @media (max-width: 800px) {
+        grid-template-columns: 1fr;
+    }
     width: 100vw;
     * {
         box-sizing: border-box;

@@ -36,9 +36,19 @@ function List() {
             setFilteredList(dataList);
         }
     }, [search, dataList]);
-    // useEffect(() => {
-    //     console.log(selectedList);
-    // }, [selectedList]);
+    useEffect(() => {
+        console.log(
+            dataList.sort((firstEl, secondEl) => {
+                return (
+                    new Date(firstEl.date).getTime() -
+                    new Date(secondEl.date).getTime()
+                );
+            })
+        );
+        for (let item of dataList) {
+            console.log(new Date(item.date).getTime());
+        }
+    }, [dataList]);
     return (
         <Container>
             <Heading scale="LG">To Do List</Heading>
@@ -57,7 +67,7 @@ function List() {
                             item={item}
                             setSelectedList={setSelectedList}
                             selectedList={selectedList}
-                        ></ListItem>
+                        />
                     );
                 })}
             {selectedList.length > 0 && (
