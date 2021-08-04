@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext, useEffect, useState } from "react";
+import styled from "styled-components";
+import List from "./View/List";
+import NewTask from "./View/NewTask";
+import { DataContext } from "./DataContext";
+
+const Wrapper = styled.div`
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    width: 100vw;
+    * {
+        box-sizing: border-box;
+    }
+`;
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    var oldData = JSON.parse(localStorage.getItem("dataList")) || [];
+    const [dataList, setDataList] = useState(oldData);
+    const value = { dataList, setDataList };
+    useEffect(() => {
+        localStorage.setItem("dataList", JSON.stringify(dataList));
+    }, [dataList]);
+    return (
+        <DataContext.Provider value={value}>
+            <Wrapper>
+                <NewTask></NewTask>
+                <List></List>
+            </Wrapper>
+        </DataContext.Provider>
+    );
 }
 
 export default App;
